@@ -15,15 +15,14 @@
 
 <body <?php body_class(); ?>>
 
-    <nav class="topnav">
-        <a href="<?php echo get_permalink(21); ?>">Home</a>
-        <a href="<?php echo get_permalink(23); ?>">About Us</a>
-        <a href="<?php echo get_tag_link(4); ?>">Overview</a>
+    <header>
+        <?php
+        wp_nav_menu(
 
-        <div class="search-container">
-            <form action="/action_page.php">
-                <input type="text" placeholder="search.." name="search">
-                <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
-        </div>
-    </nav>
+            array(
+                'theme_location' => 'top-menu',
+                'menu_class' => 'top-bar',
+            )
+        );
+        ?>
+    </header>

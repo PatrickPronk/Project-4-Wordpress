@@ -1,44 +1,56 @@
 <?php get_header(); ?>
 
 
-<div class="image-banner">
-    <img class="image-banner" src="/wp-content/themes/Wonder/assets/images/Wonder reviews.png" alt="">
-</div>
-<div class="style-link">
-    <a class="style-link-buttons" href="<?php echo get_permalink(23); ?>">About Us</a>
-    <a class="style-link-buttons" href="<?php echo get_tag_link(4); ?>">Overview</a>
-</div>
-<hr>
 <div>
-    <h2 class="last-reviews">Last reviews:</h2>
+    <img class="home_image_banner" src="/wp-content/themes/Wonder-2/images/Wonder reviews.png" alt="">
+</div>
+<div class="home_order_link_buttons">
+    <a class="home_link_buttons" href="<?php echo get_permalink(23); ?>">About Us</a>
+    <a class="home_link_buttons" href="<?php echo get_tag_link(6); ?>">Overview</a>
 </div>
 
-<div class="container reviews">
+<hr class="home_line_reviews">
 
+<div>
+    <h2 class="home_title_last_reviews">Last reviews:</h2>
+</div>
 
-    <?php $wpb_all_query = new WP_Query(array('post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => -1)); ?>
+<div class="container home_reviews">
 
-    <?php if ($wpb_all_query->have_posts()) : ?>
+    <?php
+    $args = array(
+        'post_type' => 'reviews',
+        'posts_per_page' => 3,
+        'order' => 'DESC',
+        'post_status' => 'publish',
+    );
+    $the_query = new WP_Query($args);
+    ?>
+    <div class="align_posts_archive">
+        <?php if ($the_query->have_posts()) : ?>
+            <?php while ($the_query->have_posts()) : $the_query->the_post(); ?>
+                <div class="the_title_archive">
+                    <h1><?php the_title(); ?></h1>
+                </div>
 
-        <?php while ($wpb_all_query->have_posts()) : $wpb_all_query->the_post(); ?>
-            <h1><?php the_title(); ?></h1>
+                <?php if (has_post_thumbnail()) :  ?>
+                    <img src="<?php the_post_thumbnail_url('smallest'); ?>">
+                <?php endif; ?>
 
-            <?php if (has_post_thumbnail()) : ?>
+                <div class="the_exerpt_archive">
+                    <?php the_excerpt(); ?>
+                </div>
 
-                <img src="<?php the_post_thumbnail_url('smallest'); ?>">
+                <li class="the_permalink_achive"><a href="<?php the_permalink(); ?>">Meer lezen...</a></li>
 
-            <?php endif; ?>
-            <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-        <?php endwhile; ?>
+            <?php endwhile; ?>
+    </div>
 
-
-
-        <?php wp_reset_postdata(); ?>
+    <?php wp_reset_postdata(); ?>
 
     <?php else : ?>
         <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>
     <?php endif; ?>
-
 
 </div>
 

@@ -46,10 +46,49 @@ register_nav_menus(
         'top-menu' => __('Top Menu', 'theme'),
         'footer-menu' => __('Footer Menu', 'theme')
 
-
-
     )
 );
-
-
 add_image_size('smallest', 300, 300, true);
+
+
+function reviews_post_type()
+{
+    $args = array (
+
+        'labels' => array(
+
+                    'name' => 'Reviews',
+                    'singulair_name' => 'Review',
+        ),
+        'hierarchical' => false,
+        'public' => true,
+        'has_archive' => true,
+        'menu_icon' => 'dashicons-images-alt2',
+        'supports' => array('title', 'editor', 'thumbnail'),
+    );
+    register_post_type('reviews',  $args);
+
+}
+add_action('init', 'reviews_post_type');
+
+
+
+
+function reviews_taxonomy()
+{
+    $args = array (
+
+        'labels' => array(
+                'name' => 'Pretparken',
+                'singulair_name' => 'Pretpark',
+        ),
+
+        'public' => true,
+        'hierarchical' => true,
+
+    ); 
+    register_taxonomy('pretparken', array('reviews'), $args);
+
+}
+add_action('init', 'reviews_taxonomy');
+
